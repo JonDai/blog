@@ -42,7 +42,6 @@ public class BlogController {
 	public String getArticle(@PathVariable("id") Long id){
 		try{
 			return new Gson().toJson(blogManager.getArticleById(id));
-			
 		}catch(Exception e){
 			Map<String,Object> result = new HashMap<String,Object>();
 			logger.error("getArticle",e);

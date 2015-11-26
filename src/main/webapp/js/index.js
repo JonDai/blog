@@ -21,13 +21,14 @@ $(function(){
 	//blog-post详情
 	$(".page-content").on("click",".post-title",function(){
 		var articleid = $(this).children("div").text();
+		$(".content").hide();
 		$.ajax({
 			type:"GET",
 			url:"article/"+articleid,
 			dataType:"json",
 			success:function(data){
-				$(".content").hide();
-				$("#load-page").load("article/detial");
+				$(".article-title").html(data.title);
+				$(".panel-body").html(data.content);
 			}
 		})
 	})

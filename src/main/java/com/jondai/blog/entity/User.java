@@ -14,6 +14,7 @@ public class User extends IdEntity{
 	private String password;
 	private String ip;
 	private String createtime;
+	private String lastLoginTime;
 	
 	public String getUsername() {
 		return username;
@@ -38,6 +39,12 @@ public class User extends IdEntity{
 	}
 	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
+	}
+	public String getLastLoginTime() {
+		return lastLoginTime;
+	}
+	public void setLastLoginTime(String lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
 	}
 	
 }
