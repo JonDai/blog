@@ -31,5 +31,47 @@ $(function(){
 				$(".panel-body").html(data.content);
 			}
 		})
-	})
+	});
+	
+	//sgin in登陆后台
+	$("#submit-btn").click(function(){
+		var name = $("#name-input").val();
+		var password = $("#password-input").val();
+		if(!name){
+			$("#name-group").addClass("has-error").focus();
+			$("#name-input").focus();
+		}else if(!password){
+			$("#password-group").addClass("has-error");
+			$("#password-input").focus();
+		}else{
+			var shaPassword = hex_sha1(password);
+			$.ajax({
+				url:"signin",
+				type:"POST",
+				dataType:"json",
+				data:{username:name,password:shaPassword},
+				success:function(data){
+					if(data.faild){
+						$("#name-group").addClass("has-error").focus();
+						$("#password-group").addClass("has-error");
+						$("#name-input").focus();
+					}else{
+						if(window.localStorage){   
+					         localStorage.setItem("username",name);
+					         localStorage.setItem("password",shaPassword);
+							 location.href="admin/main.html";
+					    }else{  
+					         alert("浏览器还不支持 web storage 功能");  
+					    }
+					}
+				}
+			})
+		}
+	});
+	
+	/*Sgin in reset-btn 重置按钮*/
+	$("#reset-btn").click(function(){
+		$("#password-input").val("");
+		$("#name-input").val("").focus();
+	});
 })

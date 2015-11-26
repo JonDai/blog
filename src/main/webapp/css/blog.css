@@ -31,7 +31,7 @@ body {
 /*
  * Main column and sidebar layout
  */
-
+.navbar-default .navbar-nav > li > a{margin-right: 10px}
 .blog-main {
   font-size: 18px;
   line-height: 1.5;
@@ -115,3 +115,5 @@ body {
 .input-id{
 	display: none;
 }
+/*登陆模态框*/
+.modal-body input{margin-bottom: 20px}
