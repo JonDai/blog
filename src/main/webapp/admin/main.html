@@ -2,9 +2,76 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>admin</title>
+<link rel="stylesheet" media="screen" href="../plugins/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="../css/admin.css">
+<script type="text/javascript" src="../plugins/jquery/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="../plugins/bootstrap/js/bootstrap.js"></script>
+<script src="https://cdn.bootcss.com/holder/2.9.0/holder.min.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
 </head>
 <body>
-	这里是后台!
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="#" class="navbar-brand">JonDai'Blog</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" placeholder="Search..." class="form-control">
+          </form>
+        </div>
+      </div>
+    </nav><!-- 导航结束 -->
+    
+    <!-- 左侧列表 -->
+    <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+            <li><a id="m-article" href="#">文章管理</a></li>
+            <li><a href="#">分类管理</a></li>
+            <li><a href="#">Export</a></li>
+            <li><a href="#">Nav item</a></li>
+            <li><a href="#">Nav item again</a></li>
+            <li><a href="#">One more nav</a></li>
+            <li><a href="#">Another nav item</a></li>
+            <li><a href="#">More navigation</a></li>
+            <li><a href="#">Nav item again</a></li>
+            <li><a href="#">One more nav</a></li>
+            <li><a href="#">Another nav item</a></li>
+          </ul>
+        </div>
+        
+     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main-content">
+     	<div class="article-group">
+          <h2 class="sub-header">文章列表</h2>
+          <table class="table  table-hover">
+          	<thead>
+				<tr>
+				<th class="id">编号</th>
+				<th class="title">标题</th>
+				<th>创建时间</th>
+				<th>状态</th>
+				<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		  </table>
+     	</div><!-- article-group end -->
+     </div><!-- main-content end -->
 </body>
 </html>

@@ -12,6 +12,7 @@ import javax.persistence.Table;
 public class Article extends IdEntity{
 	private String title;
 	private String content;
+	private int status;
 	private String createtime;
 	private String updatetime;
 	
@@ -39,6 +40,12 @@ public class Article extends IdEntity{
 	}
 	public void setUpdatetime(String updatetime) {
 		this.updatetime = updatetime;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 }

@@ -23,8 +23,8 @@ $(function(){
 		var articleid = $(this).children("div").text();
 		$(".content").hide();
 		$.ajax({
-			type:"GET",
 			url:"article/"+articleid,
+			type:"GET",
 			dataType:"json",
 			success:function(data){
 				$(".article-title").html(data.title);
