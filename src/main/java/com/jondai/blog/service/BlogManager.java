@@ -1,5 +1,6 @@
 package com.jondai.blog.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jondai.blog.dao.ArticleDao;
 import com.jondai.blog.entity.Article;
+import com.jondai.blog.util.Constants;
 
 /**
  * @author JonDai
@@ -27,5 +29,14 @@ public class BlogManager {
 	
 	public Article getArticleById(Long id){
 		return aDao.findOne(id);
+	}
+	
+	public void deleteArticleById(Long id){
+		aDao.delete(id);
+	}
+	
+	public void saveArticle(Article article ){
+		article.setCreatetime(Constants.DF_yyyyMMddHHmmss.format(new Date()));
+		aDao.save(article);
 	}
 }

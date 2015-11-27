@@ -25,10 +25,9 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
+            <li><a href="#" class="glyphicon glyphicon-home"> 首页</a></li>
+            <li><a href="#" class=" glyphicon glyphicon-cog"> 设置</a></li>
+            <li><a href="#" class="glyphicon glyphicon-remove-sign"> 注销</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" placeholder="Search..." class="form-control">
@@ -40,8 +39,8 @@
     <!-- 左侧列表 -->
     <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a id="m-article" href="#">文章管理</a></li>
+            <li id="m-override" class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+            <li id="m-article"><a href="#">文章管理</a></li>
             <li><a href="#">分类管理</a></li>
             <li><a href="#">Export</a></li>
             <li><a href="#">Nav item</a></li>
@@ -56,9 +55,18 @@
         </div>
         
      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main-content">
+     	<!-- override div -->
+	     <div class="jumbotron">
+			  <h1>Hello, world!</h1>
+			  <p>...</p>
+			  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+		 </div><!-- override end -->
+		 
+     	<!-- 文章列表div -->
      	<div class="article-group">
           <h2 class="sub-header">文章列表</h2>
-          <table class="table  table-hover">
+          <a href="edit.html" class="btn btn-default">新建</a>
+          <table class="table table-condensed table-hover">
           	<thead>
 				<tr>
 				<th class="id">编号</th>

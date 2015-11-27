@@ -28,3 +28,6 @@
 .article-group .title{
 	padding-right: 210px;
 }
+.article-group{
+	display: none;
+}

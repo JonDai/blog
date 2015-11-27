@@ -1,0 +1,97 @@
+/* this CSS is not part of the widget, it is here just as an example of the demo page styling.... Don't copy this one, roll your own. One
+ * of the key things about the widget is that it allows you to do your own styling!
+ */
+
+#editor {
+	max-height: 400px;
+	height: 350px;
+	background-color: white;
+	border-collapse: separate; 
+	border: 1px solid rgb(204, 204, 204); 
+	padding: 4px; 
+	box-sizing: content-box; 
+	-webkit-box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset; 
+	box-shadow: rgba(0, 0, 0, 0.0745098) 0px 1px 1px 0px inset;
+	border-top-right-radius: 3px; border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px; border-top-left-radius: 3px;
+	overflow: scroll;
+	outline: none;
+}
+#voiceBtn {
+  width: 20px;
+  color: transparent;
+  background-color: transparent;
+  transform: scale(2.0, 2.0);
+  -webkit-transform: scale(2.0, 2.0);
+  -moz-transform: scale(2.0, 2.0);
+  border: transparent;
+  cursor: pointer;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+div[data-role="editor-toolbar"] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.dropdown-menu a {
+  cursor: pointer;
+}
+.hero-unit .btn-toolbar{
+	text-align:center;	
+}
+.hero-unit{
+	background-color: #fff;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.edit-content{
+	margin: 10px auto;	
+	margin-left: 100px;
+	margin-right: 100px;
+}
+.edit-head h3 {
+    text-align: center;
+}
+.edit-head .head-group{
+	height: auto;
+    margin-left: 100px;
+    position: absolute;
+    right: 160px;
+    top: 15px;
+}
+
+#create-log-title {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #ddd -moz-use-text-color;
+    border-image: none;
+    border-radius: 0;
+    border-style: solid none;
+    border-width: 1px medium;
+    color: #00b489;
+    font-size: 20px;
+    font-weight: bold;
+    height: 58px;
+    line-height: 58px;
+    margin: -20px 0 40px;
+    position: relative;
+    text-align: center;
+    top: 30px;
+    width: 100%;
+    z-index: 99;
+}
+.ty-ghost {
+    background: transparent none repeat scroll 0 0;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    opacity: 0.8;
+}

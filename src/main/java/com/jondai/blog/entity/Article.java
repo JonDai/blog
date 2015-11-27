@@ -44,6 +44,10 @@ public class Article extends IdEntity{
 	public int getStatus() {
 		return status;
 	}
+	/**
+	 * 0:草稿
+	 * 1:发布
+	 */
 	public void setStatus(int status) {
 		this.status = status;
 	}

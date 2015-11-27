@@ -48,5 +48,21 @@ public class UserManager {
 		return user;
 	}
 	
+	/**
+	 * 检验用户名和密码是否正确
+	 */
+	public boolean verifiUser(String username ,String password){
+		List<User> users = uDao.findByUsername(username);
+		if(users == null || users.size() < 1){
+			return false;
+		}else if(!users.get(0).getPassword().equals(password)){
+			return false;
+		}else{
+			return true;
+		}
+	}
 	
+	public boolean verifiUser(User user){
+		return verifiUser(user.getUsername(), user.getPassword());
+	}
 }

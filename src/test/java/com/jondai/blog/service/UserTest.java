@@ -23,8 +23,8 @@ public class UserTest {
 	@Test
 	public void testnewRegist() throws NoSuchAlgorithmException{
 		User user = new User();
-		user.setUsername("jondai@aliyun.com");
-		user.setPassword("dpw123");
+		user.setUsername("test");
+		user.setPassword("111111");
 		User u = userManger.newRegist(user);
 		System.out.println(u.getPassword());
 	}
