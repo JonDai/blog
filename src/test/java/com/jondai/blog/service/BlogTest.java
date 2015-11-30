@@ -36,4 +36,8 @@ public class BlogTest {
 			System.out.println("art:"+article.getContent());
 		}
 	}
+	
+	@Test
+	public void testArticlesByPage(){
+	}
 }

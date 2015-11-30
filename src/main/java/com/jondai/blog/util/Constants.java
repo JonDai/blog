@@ -19,4 +19,5 @@ public interface Constants {
 	public final static String NOT_LOGON ="logon";
 	public final static Integer DRAFT = 0;
 	public final static Integer PUBLISH = 1; 
+	public final static int PAGE_SIZE = 5;
 }

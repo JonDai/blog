@@ -1,8 +1,12 @@
 //var ROOTPATH = "127.0.0.1:8080/blog/";
-
+var currPage = 1;
+var isCanLoad = true;  //后台是否还有未加载的数据
+var articleIndex = 0;  
+var lock = true;   //方法锁
 $(function(){
-	
-	//加载最近更新blog
+	//加载最近更新所有blog
+		LoadPage();
+		/*
 	$.ajax({
 		type:"GET",
 		url:"postlately",
@@ -17,7 +21,7 @@ $(function(){
 			})
 		}
 	});
-	
+	*/
 	//blog-post详情
 	$(".page-content").on("click",".post-title",function(){
 		var articleid = $(this).children("div").text();
@@ -74,4 +78,51 @@ $(function(){
 		$("#password-input").val("");
 		$("#name-input").val("").focus();
 	});
+	
+	/*无限滚动分页加载*/
+	  $(window).scroll(function() {  
+	      //当内容滚动到底部时加载新的内容  
+		  if ($(this).scrollTop() + $(window).height() + 100 >= $(document).height() && $(this).scrollTop() > 100){
+	      //当前要加载的页码  
+			  if(lock){ LoadPage();}
+	      }  
+	  }); 
+	  
+	  /*导航栏 点击切换样式*/
+	  $(".navbar-nav li").click(function(){
+		  $(".navbar-nav .active").removeClass("active");
+		  $(this).addClass("active");
+	  });
 })
+
+/*分页加载数据，并加锁*/
+function LoadPage(){
+	lock = false;
+	$(".la-pacman").show();
+	setTimeout(function(){console.log("2")},5000);
+	if(isCanLoad){
+		$.ajax({
+			url:"loadpage/"+currPage,
+			type:"POST",
+			async:false,
+			dataType:"json",
+			success:function(data){
+				if(data.length < 1){
+					isCanLoad=false;
+				}else{
+					$.each(data,function(k,v){
+						$(".page-content").append("<div id=post-container"+articleIndex+" class='post-container'></div>");
+						$("#post-container"+articleIndex+"").append("<h2 id=post-title"+articleIndex+" class='post-title'><a href='#'>"+v[1]+"</a></h2>");
+						$("#post-container"+articleIndex+"").append("<div id=post-content"+articleIndex+" class='post-content'>"+v[2]+"</div>");
+						//保存对象的ID
+						$("#post-title"+articleIndex+"").append("<div class='input-id'>"+v[0]+"</div>");
+						articleIndex++;
+					});
+				}
+				currPage++;
+			}
+		});
+	}
+	$(".la-pacman").hide();
+	lock = true;
+}

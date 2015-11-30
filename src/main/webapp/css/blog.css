@@ -117,3 +117,9 @@ body {
 }
 /*登陆模态框*/
 .modal-body input{margin-bottom: 20px}
+/*加载中动画颜色*/
+.la-pacman{color: #79bbb5; margin-left: auto;margin-right: auto; bottom: 30px;display: none;}
+/*详情边框*/
+.panel{border-right-width:0px; border-bottom-width: 0px; border-left-width: 0px;}
+/*导航栏search-btn按钮*/
+#search-btn{display: inline;}

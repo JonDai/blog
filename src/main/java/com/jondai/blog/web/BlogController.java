@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jondai.blog.service.BlogManager;
 
 /**
@@ -45,6 +47,19 @@ public class BlogController {
 		}catch(Exception e){
 			Map<String,Object> result = new HashMap<String,Object>();
 			logger.error("getArticle",e);
+			result.put("faild", e.getMessage());
+			return new Gson().toJson(result);
+		}
+	}
+	
+	@RequestMapping(value="loadpage/{currpage}" , method = RequestMethod.POST)
+	@ResponseBody
+	public String pageLoad(@PathVariable("currpage") Integer currpage){
+		try{
+			return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(blogManager.getArticlesByPage(currpage));
+		}catch(Exception e){
+			Map<String,Object> result = new HashMap<String,Object>();
+			logger.error("pageLoad",e);
 			result.put("faild", e.getMessage());
 			return new Gson().toJson(result);
 		}

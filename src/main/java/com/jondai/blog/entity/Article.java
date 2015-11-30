@@ -3,6 +3,8 @@ package com.jondai.blog.entity;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * @author JonDai
  * @since 2015年11月22日 下午4:48:44
@@ -10,10 +12,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "article")
 public class Article extends IdEntity{
+	@Expose
 	private String title;
+	@Expose
 	private String content;
+	@Expose
 	private int status;
+	@Expose
 	private String createtime;
+	@Expose
 	private String updatetime;
 	
 	public String getTitle() {
