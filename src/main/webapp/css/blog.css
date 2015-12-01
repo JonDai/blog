@@ -122,4 +122,4 @@ body {
 /*详情边框*/
 .panel{border-right-width:0px; border-bottom-width: 0px; border-left-width: 0px;}
 /*导航栏search-btn按钮*/
-#search-btn{display: inline;}
+#search-btn{ display: inline; float: right; left: 550px;margin-top: 18px;position: absolute;}

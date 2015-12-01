@@ -11,6 +11,32 @@ $(function(){
 	$("#reset-btn").click(function(){
 		location.href = "main.html";
 	});
+	
+	/*选择一级分类之后，显示其下的所有二级分类*/
+	$('input').on('ifChecked', function(event){
+		var leveltwo = $("#level-two");
+		leveltwo.empty();
+		if($(this).val() == "dream"){param.pclassify = 1}
+		if($(this).val() == "life"){param.pclassify = 2}
+		if($(this).val() == "tech"){param.pclassify = 3}
+		$.ajax({
+			url:"classifies",
+			type:"POST",
+			dataType:"json",
+			data:param,
+			success:function(data){
+				$.each(data,function(k,v){
+					leveltwo.append("<input type='checkbox'  value="+v.id+"><label class='classify'>"+v.name+"</label>");
+				});
+			}
+		});
+	});
+	
+	/*初始化多选按钮样式*/
+	$('#subModal input').iCheck({
+	    checkboxClass: 'icheckbox_flat-green',
+	    radioClass: 'iradio_flat-green'
+	  });
 });
 
 /*保存文章*/

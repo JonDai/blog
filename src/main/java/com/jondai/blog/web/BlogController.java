@@ -2,6 +2,7 @@ package com.jondai.blog.web;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jondai.blog.entity.User;
 import com.jondai.blog.service.BlogManager;
+import com.jondai.blog.service.UserManager;
 
 /**
  * @author JonDai
@@ -25,6 +28,8 @@ public class BlogController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private BlogManager blogManager;
+	@Autowired
+	private UserManager userManager;
 	
 	@RequestMapping(value="postlately")
 	@ResponseBody
@@ -57,6 +62,18 @@ public class BlogController {
 	public String pageLoad(@PathVariable("currpage") Integer currpage){
 		try{
 			return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(blogManager.getArticlesByPage(currpage));
+		}catch(Exception e){
+			Map<String,Object> result = new HashMap<String,Object>();
+			logger.error("pageLoad",e);
+			result.put("faild", e.getMessage());
+			return new Gson().toJson(result);
+		}
+	}
+	@RequestMapping(value="adduser" , method = RequestMethod.POST)
+	@ResponseBody
+	public String addUser(User user){
+		try{
+			return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(userManager.newRegist(user));
 		}catch(Exception e){
 			Map<String,Object> result = new HashMap<String,Object>();
 			logger.error("pageLoad",e);

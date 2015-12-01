@@ -31,3 +31,7 @@
 .article-group{
 	display: none;
 }
+.classify{display: inline; margin: 10px 5px;}
+.modal-classify{margin-left: 35px;}
+#addTips{display: none; margin-left: 220px; margin-top: 20px; position: absolute; color: green;}
+.classify-group .desc{padding-right: 180px}

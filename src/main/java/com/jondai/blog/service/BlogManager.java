@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jondai.blog.dao.ArticleDao;
+import com.jondai.blog.dao.ClassifyDao;
 import com.jondai.blog.entity.Article;
+import com.jondai.blog.entity.Classify;
 import com.jondai.blog.util.Constants;
 
 /**
@@ -22,6 +24,8 @@ import com.jondai.blog.util.Constants;
 public class BlogManager {
 	@Autowired
 	private ArticleDao aDao;
+	@Autowired
+	private ClassifyDao cDao;
 	@PersistenceContext
 	private EntityManager em;
 	
@@ -54,5 +58,21 @@ public class BlogManager {
 		int start = Constants.PAGE_SIZE * (currPage - 1);
 		String sql = "select * from article limit "+start+","+Constants.PAGE_SIZE+";";
 		return (ArrayList<Article>)em.createNativeQuery(sql).getResultList();
+	}
+	
+	public List<Classify> getAllClassify(int level){
+		return cDao.findByLevel(level);
+	}
+	
+	public List<Classify> getClassifyByPClassify(int pclassify){
+		return cDao.findByPclassify(pclassify);
+	}
+	
+	public void addClassify(Classify classify){
+		classify.setCreatetime(Constants.DF_yyyyMMddHHmmss.format(new Date()));
+		//目前暂时只支持2级目录
+		classify.setLevel(2);
+		classify.setCount(0);
+		cDao.save(classify);
 	}
 }

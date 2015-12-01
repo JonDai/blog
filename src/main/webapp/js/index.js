@@ -93,6 +93,21 @@ $(function(){
 		  $(".navbar-nav .active").removeClass("active");
 		  $(this).addClass("active");
 	  });
+	  
+	  /*注册按钮*/
+	  $("#add-btn").click(function(){
+		 var name = $("#name-input").val(); 
+		 var password = $("#password-input").val();
+		 $.ajax({
+			url:"adduser",
+			type:"POST",
+			dataType:"json",
+			data:{username:name,password:password},
+			seccess:function(data){
+				alert("ok");
+			},
+		 });
+	  });
 })
 
 /*分页加载数据，并加锁*/

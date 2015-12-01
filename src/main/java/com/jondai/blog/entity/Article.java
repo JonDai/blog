@@ -12,6 +12,11 @@ import com.google.gson.annotations.Expose;
 @Entity
 @Table(name = "article")
 public class Article extends IdEntity{
+	/**
+	 * Classify分类id
+	 */
+	@Expose
+	private Long pid;
 	@Expose
 	private String title;
 	@Expose
@@ -22,7 +27,15 @@ public class Article extends IdEntity{
 	private String createtime;
 	@Expose
 	private String updatetime;
+	@Expose
+	private String tag;
 	
+	public Long getPid() {
+		return pid;
+	}
+	public void setPid(Long pid) {
+		this.pid = pid;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -57,6 +70,12 @@ public class Article extends IdEntity{
 	 */
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	public String getTag() {
+		return tag;
+	}
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 	
 }

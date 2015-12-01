@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.jondai.blog.entity.Article;
+import com.jondai.blog.entity.Classify;
 import com.jondai.blog.entity.User;
 import com.jondai.blog.service.BlogManager;
 import com.jondai.blog.service.UserManager;
@@ -132,4 +133,39 @@ public class AdminController {
 		return new Gson().toJson(result);
 	}
 	
+	@RequestMapping(value = "classifies",method = RequestMethod.POST)
+	@ResponseBody
+	public String classifies(User user,Classify classify){
+		/*验证用户是否登陆*/
+		Map<String,Object> result = new HashMap<String,Object>();
+		if(!userManager.verifiUser(user)){
+			result.put("faild", "logon");
+			return new Gson().toJson(result);
+		}
+		try{
+			return new Gson().toJson(blogManager.getClassifyByPClassify(classify.getPclassify()));
+		}catch(Exception e){
+			logger.error("classifies",e);
+			result.put("faild", e.getMessage());
+			return new Gson().toJson(result);
+		}
+	}
+	
+	@RequestMapping(value = "addclassify",method = RequestMethod.POST)
+	@ResponseBody
+	public String addClassify(User user ,Classify classify){
+		/*验证用户是否登陆*/
+		Map<String,Object> result = new HashMap<String,Object>();
+		if(!userManager.verifiUser(user)){
+			result.put("faild", "logon");
+			return new Gson().toJson(result);
+		}
+		try{
+			blogManager.addClassify(classify);
+		}catch(Exception e){
+			logger.error("getArticle",e);
+			result.put("faild", e.getMessage());
+		}
+		return new Gson().toJson(result);
+	}
 }

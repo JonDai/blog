@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.jondai.blog.entity.Article;
+import com.jondai.blog.entity.Classify;
 
 /**
  * @author JonDai
@@ -38,6 +39,12 @@ public class BlogTest {
 	}
 	
 	@Test
-	public void testArticlesByPage(){
+	public void testsaveClassify(){
+		Classify c = new Classify();
+		c.setDescription("test");
+		c.setLevel(1);
+		c.setName("hahha");
+		c.setPclassify(2);
+		blogManager.addClassify(c);
 	}
 }
