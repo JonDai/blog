@@ -2,14 +2,16 @@ package com.jondai.blog.web;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.shiro.authz.annotation.RequiresUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -69,6 +71,7 @@ public class BlogController {
 			return new Gson().toJson(result);
 		}
 	}
+	
 	@RequestMapping(value="adduser" , method = RequestMethod.POST)
 	@ResponseBody
 	public String addUser(User user){
@@ -77,6 +80,32 @@ public class BlogController {
 		}catch(Exception e){
 			Map<String,Object> result = new HashMap<String,Object>();
 			logger.error("pageLoad",e);
+			result.put("faild", e.getMessage());
+			return new Gson().toJson(result);
+		}
+	}
+	
+	@RequestMapping(value="twoclassify" , method = RequestMethod.POST)
+	@ResponseBody
+	public String classifyByLevelone(@RequestParam(value="pclassify",required=true) Integer pclassify){
+		try{
+			return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(blogManager.getClassifyByPClassify(pclassify));
+		}catch(Exception e){
+			Map<String,Object> result = new HashMap<String,Object>();
+			logger.error("getArticle",e);
+			result.put("faild", e.getMessage());
+			return new Gson().toJson(result);
+		}
+	}
+	
+	@RequestMapping(value="articlesbyclass" , method = RequestMethod.POST)
+	@ResponseBody
+	public String articlesByClass(@RequestParam(value="classifyid",required=true) int classifyid){
+		try{
+			return new Gson().toJson(blogManager.getAritcleByPid(classifyid));
+		}catch(Exception e){
+			Map<String,Object> result = new HashMap<String,Object>();
+			logger.error("articlesByClass",e);
 			result.put("faild", e.getMessage());
 			return new Gson().toJson(result);
 		}

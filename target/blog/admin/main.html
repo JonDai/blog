@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>admin</title>
+<link rel="stylesheet" media="screen" href="../plugins/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="../plugins/flat/green.css">
+<link rel="stylesheet" href="../plugins/sweetalert/sweet-alert.css">
+<link rel="stylesheet" href="../css/admin.css">
+<script type="text/javascript" src="../plugins/jquery/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="../plugins/bootstrap/js/bootstrap.js"></script>
+<script src="https://cdn.bootcss.com/holder/2.9.0/holder.min.js"></script>
+<script type="text/javascript" src="../js/icheck.min.js"></script>
+<script type="text/javascript" src="../plugins/sweetalert/sweet-alert.min.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+</head>
+<body>
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="#" class="navbar-brand">JonDai'Blog</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../index.html" class="glyphicon glyphicon-home"> 首页</a></li>
+            <li><a href="#" class=" glyphicon glyphicon-cog"> 设置</a></li>
+            <li><a href="#" class="glyphicon glyphicon-remove-sign"> 注销</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" placeholder="Search..." class="form-control">
+          </form>
+        </div>
+      </div>
+    </nav><!-- 导航结束 -->
+    
+    <!-- 左侧列表 -->
+    <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li id="m-override" class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+            <li id="m-article"><a href="#">文章管理</a></li>
+            <li id="m-classify"><a href="#">分类管理</a></li>
+            <li><a href="#">Export</a></li>
+            <li><a href="#">Nav item</a></li>
+            <li><a href="#">Nav item again</a></li>
+            <li><a href="#">One more nav</a></li>
+            <li><a href="#">Another nav item</a></li>
+            <li><a href="#">More navigation</a></li>
+            <li><a href="#">Nav item again</a></li>
+            <li><a href="#">One more nav</a></li>
+            <li><a href="#">Another nav item</a></li>
+          </ul>
+        </div>
+        
+     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main-content">
+     	<!-- override div -->
+	     <div class="jumbotron">
+			  <h1>Hello, world!</h1>
+			  <p>...</p>
+			  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+		 </div><!-- override end -->
+		 
+     	<!-- 文章列表div -->
+     	<div class="article-group">
+          	<ul class="nav nav-tabs">
+			  <li role="presentation" value="dream"><a href="#">梦想</a></li>
+			  <li role="presentation" value="life"><a href="#">生活</a></li>
+			  <li role="presentation" value="tech" id="class-tech" class="active"><a href="#">技术</a></li>
+			  <li class="navbar-right"><a href="edit.html" class="glyphicon glyphicon-import">新建</a></li>
+			</ul>
+			<br>
+          <table class="table table-condensed table-hover">
+          	<thead>
+				<tr>
+				<th class="id">编号</th>
+				<th class="title">标题</th>
+				<th>创建时间</th>
+				<th>状态</th>
+				<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		  </table>
+     	</div><!-- article-group end -->
+     	
+     	<!-- 分类列表div -->
+     	<div class="classify-group">
+     		<ul class="nav nav-tabs">
+			  <li role="presentation" value="dream"><a href="#">梦想</a></li>
+			  <li role="presentation" value="life"><a href="#">生活</a></li>
+			  <li role="presentation" value="tech" id="class-tech" class="active"><a href="#">技术</a></li>
+			  <li class="navbar-right" id="new-classify"><a href="#" class="glyphicon glyphicon-import" data-toggle="modal" data-target="#addModal">新建</a></li>
+			</ul>
+			<br>
+			<table class="table table-condensed table-hover">
+          	<thead>
+				<tr>
+				<th class="id">编号</th>
+				<th class="title">分类名称</th>
+				<th>Blog数量</th>
+				<th class="desc">描述</th>
+				<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		  </table>
+		 	<!-- Modal -->
+		<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="addModalLabel" >新建分类</h4>
+		        <span id="addTips" class="glyphicon glyphicon-saved"> 保存成功!</span>
+		      </div>
+		      <div class="modal-body">
+			     <span>属于:</span>
+			     <div class="modal-classify">
+			     <div id="level-one">
+				     <input type="radio" name="iCheck" value="dream"><label class="classify" id="ch_dream">梦想</label>
+				     <input type="radio" name="iCheck" value="life"><label class="classify" id="ch_life">生活</label>
+				     <input type="radio" name="iCheck" value="tech" checked><label class="classify" id="ch_tech">技术</label>
+			     </div>
+				 <br>
+		     		  <div class="form-group" id="classify-group">
+					    <label for="classifyname">分类名称</label>
+					    <input type="text" class="form-control" id="classifyname" placeholder="简简单单">
+					  </div>
+					    <label for="classifyname">描述</label>
+					    <input type="text" class="form-control" id="classifydesc" placeholder="对于这个分类的想法...">
+				 </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" id="submit-btn" class="btn btn-primary">确定</button>
+		      </div>
+		    </div>
+		  </div>
+		</div><!-- modal end -->
+     	</div>
+     </div><!-- main-content end -->
+</body>
+</html>

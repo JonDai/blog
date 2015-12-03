@@ -16,7 +16,7 @@ public class Article extends IdEntity{
 	 * Classify分类id
 	 */
 	@Expose
-	private Long pid;
+	private int pid;
 	@Expose
 	private String title;
 	@Expose
@@ -30,10 +30,10 @@ public class Article extends IdEntity{
 	@Expose
 	private String tag;
 	
-	public Long getPid() {
+	public int getPid() {
 		return pid;
 	}
-	public void setPid(Long pid) {
+	public void setPid(int pid) {
 		this.pid = pid;
 	}
 	public String getTitle() {

@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+.classify{display: inline; margin: 10px 5px;}
+.modal-classify{margin-left: 35px;}
+.tag{margin-left: 160px}
+.tag .label{margin-left: 10px;}
+.tag h5{display: inline;}
+.tag input{width: 120px; margin-left: 10px}
+#addTag{display: inline;}

@@ -2,14 +2,19 @@ package com.jondai.blog.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.util.HtmlUtils;
 
+import com.jondai.blog.dao.ArticleDao;
 import com.jondai.blog.entity.Article;
 import com.jondai.blog.entity.Classify;
+import com.jondai.blog.util.HtmlUtil;
 
 /**
  * @author JonDai
@@ -20,6 +25,8 @@ import com.jondai.blog.entity.Classify;
 public class BlogTest {
 	@Autowired 
 	private BlogManager blogManager;
+	@Autowired
+	private ArticleDao aDao;
 	
 	@Test
 	public void testaddArticle(){
@@ -46,5 +53,11 @@ public class BlogTest {
 		c.setName("hahha");
 		c.setPclassify(2);
 		blogManager.addClassify(c);
+	}
+	
+	@Test
+	public void testRep(){
+		Article article = aDao.findOne(new Long("16"));
+		System.out.println(HtmlUtil.getTextFromHtml(article.getContent()));
 	}
 }

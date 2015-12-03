@@ -93,7 +93,8 @@ public class AdminController {
 	/**
 	 * 删除文章
 	 */
-	@RequestMapping(value="article/{id}",method = RequestMethod.DELETE)
+	@RequestMapping(value="deletearticle/{id}",method = RequestMethod.POST)
+	@ResponseBody
 	public String deleteArticle(@PathVariable("id") Long id,User user){
 		/*验证用户是否登陆*/
 		Map<String,Object> result = new HashMap<String,Object>();
