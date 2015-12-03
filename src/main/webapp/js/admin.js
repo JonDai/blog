@@ -17,28 +17,22 @@ $(function(){
 		$(".main-content>div:visible").hide();
 		$(".jumbotron").show();
 	})
+	/*article-group点击样式的修改*/
+	$(".article-group li").click(function(){
+		$(".article-group .active").removeClass("active");
+		$(this).addClass("active");
+		var pclassify = $(this).attr("value");
+		param.pclassify = convertClassify(pclassify);
+		loadClassifyArticles(param);
+	});
+	
 	/*文章列表加载事件*/
 	$("#m-article").click(function(){
 		$(".main-content>div:visible").hide();
 		$(".article-group").show();
-		$(".article-group tbody").empty();
-		$.ajax({
-			url:"articles",
-			type:"POST",
-			data:param,
-			dataType:"json",
-			success:function(data){
-				if(data.faild){
-					errorHandle(data);
-				}else{
-					var tbody = $(".article-group tbody");
-					$.each(data,function(k,v){
-						tbody.append("<tr><td>"+v.id+"</td><td><a href='#'>"+v.title+"</a></td><td>"+v.createtime+"</td><td>"+v.status+"</td>" +
-								"<td><button type='button' class='btn btn-primary'>编辑</button> <button type='button' class='btn btn-danger'>删除</button></td></tr>");
-					});
-				}
-			}
-		});
+		var pclassify = $(".article-group .active").attr("value");
+		param.pclassify = convertClassify(pclassify);
+		loadClassifyArticles(param);
 	});
 	
 	/*查看文章*/
@@ -147,4 +141,33 @@ $(function(){
 function errorHandle(data){
 	if(data.faild == "logon"){location.href="../index.html";}
 	else{alert(data.faild)}
+}
+/*classify 转换*/
+function convertClassify(classify){
+	var intClassify = 0;
+	if(classify == "dream"){intClassify = 1}
+	if(classify == "life"){intClassify = 2}
+	if(classify == "tech"){intClassify = 3}
+	return intClassify;
+}
+/*加载分类article*/
+function loadClassifyArticles(param){
+	$(".article-group tbody").empty();
+	$.ajax({
+		url:"articlesbyclassify",
+		type:"POST",
+		data:param,
+		dataType:"json",
+		success:function(data){
+			if(data.faild){
+				errorHandle(data);
+			}else{
+				var tbody = $(".article-group tbody");
+				$.each(data,function(k,v){
+					tbody.append("<tr><td>"+v.id+"</td><td><a href='#'>"+v.title+"</a></td><td>"+v.createtime+"</td><td>"+v.status+"</td>" +
+							"<td><button type='button' class='btn btn-primary'>编辑</button> <button type='button' class='btn btn-danger'>删除</button></td></tr>");
+				});
+			}
+		}
+	});
 }

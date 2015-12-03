@@ -34,9 +34,9 @@ public class AdminController {
 	@Autowired
 	private UserManager userManager;
 	
-	@RequestMapping(value = "articles",method = RequestMethod.POST)
+	@RequestMapping(value = "articlesbyclassify",method = RequestMethod.POST)
 	@ResponseBody
-	public String articles(User user){
+	public String articles(User user ,Classify classify){
 		/*验证用户是否登陆*/
 		Map<String,String> result = new HashMap<String,String>();
 		if(!userManager.verifiUser(user)){
@@ -44,7 +44,7 @@ public class AdminController {
 			return new Gson().toJson(result);
 		}
 		try{
-			return new Gson().toJson(blogManager.getAllArticle());
+			return new Gson().toJson(blogManager.getArticleByPclassify(classify.getPclassify()));
 		}catch(Exception e){
 			logger.error("articles:"+e.getMessage());
 			result.put("faild", e.getMessage());

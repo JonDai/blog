@@ -1,8 +1,10 @@
 package com.jondai.blog.service;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -94,5 +96,22 @@ public class BlogManager extends CommonManager{
 			article.setContent(HtmlUtil.getTextFromHtml(content));
 		}
 		return articles;
+	}
+	
+	/**
+	 * 返回一级目录下的所有article
+	 * @throws Exception 
+	 */
+	public List<Article> getArticleByPclassify(int pclassify) throws Exception{
+		List<Classify> classifys = cDao.findByPclassify(pclassify);
+		Set<Integer> articlepids = new HashSet<Integer>();
+		if(classifys != null && classifys.size() >= 1){
+			for(Classify classify : classifys){
+				articlepids.add(Integer.parseInt(classify.getId().toString()));
+			}
+			return aDao.findByPidInOrderByCreatetimeDesc(articlepids);
+		}else{
+			throw new Exception("该分类什么也没有...");
+		}
 	}
 }

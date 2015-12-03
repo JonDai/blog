@@ -31,6 +31,12 @@
 .article-group{
 	display: none;
 }
+.article-group li{cursor:pointer}
+.classify-group li{cursor:pointer}
+.classify-group{
+	display: none;
+}
+.sidebar li{cursor: pointer;}
 .classify{display: inline; margin: 10px 5px;}
 .modal-classify{margin-left: 35px;}
 #addTips{display: none; margin-left: 220px; margin-top: 20px; position: absolute; color: green;}
