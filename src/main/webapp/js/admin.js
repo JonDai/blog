@@ -16,7 +16,8 @@ $(function(){
 	$("#m-override").click(function(){
 		$(".main-content>div:visible").hide();
 		$(".jumbotron").show();
-	})
+	});
+	
 	/*article-group点击样式的修改*/
 	$(".article-group li").click(function(){
 		$(".article-group .active").removeClass("active");
@@ -94,12 +95,21 @@ $(function(){
 				var tbody = $(".classify-group tbody");
 				$.each(data,function(k,v){
 					tbody.append("<tr><td>"+v.id+"</td><td><a href='#'>"+v.name+"</a></td><td>"+v.count+"</td><td>"+v.description+"</td>" +
-					"<td><button type='button' class='btn btn-primary'>编辑</button> <button type='button' class='btn btn-danger'>删除</button></td></tr>");
+					"<td><button type='button' class='btn btn-primary classify-modify'>编辑</button> <button type='button' class='btn btn-danger'>删除</button></td></tr>");
 				});
 			}
 		});
-		
 	});
+	
+	/*article-group 编辑按钮*/
+	$(".article-group").on("click",".article-modify",function(){
+		var tr = $(this).parent().parent();
+		var id = tr.children(":first").html();
+		//将id写入url中，转跳页面后从url中获取id并在数据库中查询显示在页面中
+		location.href = "edit.html?id="+id
+	});
+	
+	
 	/*添加二级目录*/
 	$("#addModal #submit-btn").click(function(){
 		$("#addTips").hide();
@@ -165,7 +175,7 @@ function loadClassifyArticles(param){
 				var tbody = $(".article-group tbody");
 				$.each(data,function(k,v){
 					tbody.append("<tr><td>"+v.id+"</td><td><a href='#'>"+v.title+"</a></td><td>"+v.createtime+"</td><td>"+v.status+"</td>" +
-							"<td><button type='button' class='btn btn-primary'>编辑</button> <button type='button' class='btn btn-danger'>删除</button></td></tr>");
+							"<td><button type='button' class='btn btn-primary article-modify'>编辑</button> <button type='button' class='btn btn-danger'>删除</button></td></tr>");
 				});
 			}
 		}

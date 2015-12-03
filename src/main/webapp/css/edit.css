@@ -6,3 +6,4 @@
 .tag h5{display: inline;}
 .tag input{width: 120px; margin-left: 10px}
 #addTag{display: inline;}
+#modify-btn{display: none;}

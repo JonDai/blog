@@ -55,8 +55,16 @@ public class BlogManager extends CommonManager{
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void saveArticle(Article article ){
-		article.setCreatetime(Constants.DF_yyyyMMddHHmmss.format(new Date()));
-		aDao.save(article);
+		if(article.getId() == null || article.getId().toString().equals("")){
+			article.setCreatetime(Constants.DF_yyyyMMddHHmmss.format(new Date()));
+			aDao.save(article);
+		}else{
+			Article oldArticle = aDao.findOne(article.getId());
+			oldArticle.setTitle(article.getTitle());
+			oldArticle.setContent(article.getContent());
+			oldArticle.setUpdatetime(Constants.DF_yyyyMMddHHmmss.format(new Date()));
+			aDao.save(oldArticle);
+		}
 	}
 	
 	/**

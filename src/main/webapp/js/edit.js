@@ -2,6 +2,29 @@ var param = {username:localStorage.getItem("username"), password:localStorage.ge
 var DRAFT = 0 ; //草稿
 var PUBLISH = 1;  //发布
 $(function(){
+	//在初始化页面时候，判断url中是否存在id，如果有则加载内容
+	var articleid = getUrlParam("id");
+	if(articleid){
+		param.id = articleid;
+		$.ajax({
+			url:"article/"+articleid,
+			type:'POST',
+			data:param,
+			dataType:'json',
+			success:function(data){
+				$("#create-log-title").val(data.title);
+				$("#editor").html(data.content);
+				$("#submit-btn").hide();
+				$("#modify-btn").show();
+			}
+		});
+	}
+	
+	/*修改文章内容*/
+	$("#modify-btn").click(function(){
+		saveArticle(PUBLISH);
+	});
+	
 	/*初始化多选按钮样式*/
 	$('#subModal input').iCheck({
 	    checkboxClass: 'icheckbox_flat-green',
@@ -86,8 +109,8 @@ function saveArticle(status){
 	param.title = $("#create-log-title").val();
 	param.content = $("#editor").html();
 	param.status = status;
-	if(!param.title){alert("标题不能为空！");}
-	else if(!param.content){alert("内容不能为空！");}
+	if(!param.title){sweetAlert("Ooops...", "取个好名字吧!", "error");}
+	else if(!param.content){sweetAlert("Ooops...","你好像什么也没写...","error");}
 	else{
 		$.ajax({
 			url:"savearticle",
@@ -95,7 +118,7 @@ function saveArticle(status){
 			data:param,
 			dataType:"json",
 			success:function(data){
-				alert("ok");
+				swal("OK!","保存成功!","success");
 			}
 		});
 	}
@@ -106,4 +129,10 @@ function convertClassify(classify){
 	if(classify == "life"){intClassify = 2}
 	if(classify == "tech"){intClassify = 3}
 	return intClassify;
+}
+
+function getUrlParam(name){
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if (r!=null) return unescape(r[2]); return null;
 }
