@@ -6,8 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,6 +48,7 @@ public class BlogController {
 	@ResponseBody
 	public String getArticle(@PathVariable("id") Long id){
 		try{
+			blogManager.seveArticleReadCount(id);
 			return new Gson().toJson(blogManager.getArticleById(id));
 		}catch(Exception e){
 			Map<String,Object> result = new HashMap<String,Object>();
@@ -76,6 +75,7 @@ public class BlogController {
 	@ResponseBody
 	public String addUser(User user){
 		try{
+			userManager.hasUser(user);
 			return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(userManager.newRegist(user));
 		}catch(Exception e){
 			Map<String,Object> result = new HashMap<String,Object>();

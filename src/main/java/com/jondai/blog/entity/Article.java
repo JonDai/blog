@@ -29,6 +29,8 @@ public class Article extends IdEntity{
 	private String updatetime;
 	@Expose
 	private String tag;
+	@Expose
+	private int readcount;
 	
 	public int getPid() {
 		return pid;
@@ -76,6 +78,12 @@ public class Article extends IdEntity{
 	}
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+	public int getReadcount() {
+		return readcount;
+	}
+	public void setReadcount(int readcount) {
+		this.readcount = readcount;
 	}
 	
 }

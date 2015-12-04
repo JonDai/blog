@@ -14,7 +14,14 @@ import com.google.gson.annotations.Expose;
 public class User extends IdEntity{
 	@Expose
 	private String username;
+	@Expose
 	private String password;
+	/**
+	 * 0:admin
+	 * 1:vip user
+	 */
+	@Expose
+	private int usertype;
 	@Expose
 	private String email;
 	@Expose
@@ -59,6 +66,12 @@ public class User extends IdEntity{
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public int getUsertype() {
+		return usertype;
+	}
+	public void setUsertype(int usertype) {
+		this.usertype = usertype;
 	}
 	
 }

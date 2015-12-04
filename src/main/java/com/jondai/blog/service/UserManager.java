@@ -65,4 +65,17 @@ public class UserManager {
 	public boolean verifiUser(User user){
 		return verifiUser(user.getUsername(), user.getPassword());
 	}
+	/**
+	 * 检查是否已经存在该用户
+	 * @throws Exception 
+	 */
+	public void hasUser(User user) throws Exception{
+		List<User> user1 = uDao.findByUsername(user.getUsername());
+		List<User> user2 = uDao.findByEmail(user.getEmail());
+		if(user1 != null && user1.size() >= 1){
+			throw new Exception("该用户名已经注册!");
+		}else if(user2 != null && user2.size() >= 1){
+			throw new Exception("该邮箱已经注册!");
+		}
+	}
 }

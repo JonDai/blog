@@ -28,7 +28,6 @@ $(function(){
 		}
 	});
 	 */
-
 	//左侧分页导航
 	$("#dream-list").empty();
 	$.ajax({
@@ -39,7 +38,7 @@ $(function(){
 		success:function(data){
 			var sidelist = $("#dream-list");
 			$.each(data,function(k,v){
-				sidelist.append('<a href="#" value="'+v.id+'"><i class="fa fa-fw fa-bell-o"></i><span>'+v.name+'</span></a>');
+				sidelist.append('<a href="#" value="'+v.id+'"><span class="glyphicon glyphicon-send"> '+v.name+'-'+v.count+'</span></a>');
 			});
 		}
 	});
@@ -52,7 +51,7 @@ $(function(){
 		success:function(data){
 			var sidelist = $("#life-list");
 			$.each(data,function(k,v){
-				sidelist.append('<a href="#" value="'+v.id+'"><i class="fa fa-fw fa-bell-o"></i><span>'+v.name+'</span></a>');
+				sidelist.append('<a href="#" value="'+v.id+'"><span class="glyphicon glyphicon-heart"> '+v.name+'-'+v.count+'</span></a>');
 			});
 		}
 	});
@@ -66,7 +65,7 @@ $(function(){
 		success:function(data){
 			var sidelist = $("#tech-list");
 			$.each(data,function(k,v){
-				sidelist.append('<a href="#" value="'+v.id+'"><i class="fa fa-fw fa-bell-o"></i><span>'+v.name+'</span></a>');
+				sidelist.append('<a href="#" value="'+v.id+'"><span class="glyphicon glyphicon-tags"> '+v.name+'</span><span>-'+v.count+'</span></a>');
 			});
 		}
 	});
@@ -85,7 +84,7 @@ $(function(){
 			}
 		})
 	});
-	
+/** 登陆、注册modal框*/
 	//导航栏signin点击触发事件
 	$("#signin").click(function(){
 		$('#myModal').modal('toggle')
@@ -97,7 +96,44 @@ $(function(){
 			LOCAL_STORGE = true;
 		}
 	});
+	/*登陆、注册切换事件*/
+	$('#m-title-login').click(function(){
+		$('.logon-nav .active').removeClass('active');
+		$(this).addClass('active');
+		$('#modal-newaccount').hide();
+		$('#modal-login').show();
+	});
+	$('#m-title-new').click(function(){
+		$('.logon-nav .active').removeClass('active');
+		$(this).addClass('active');
+		$('#modal-login').hide();
+		$('#modal-newaccount').show();
+	});
 
+	/*注册按钮*/
+	$("#add-btn").click(function(){
+		if(checkinput()){
+			var name = $("#n-name-input").val(); 
+			var password = $("#n-password-input").val();
+			var email = $("#n-password-input").val();
+			$.ajax({
+				url:"adduser",
+				type:"POST",
+				dataType:"json",
+				data:{username:name,password:password,email:email,type:1},
+				success:function(data){
+					if(data.faild){
+						swal("Ooop!",data.faild,"error");
+					}else{
+						swal("OK!","注册成功!","success");
+						localStorage.setItem("username",data.name);
+						localStorage.setItem("password",data.shaPassword);
+						localStorage.setItem('type',data.type);	
+					}
+				},
+			});
+		}
+	});
 	//sgin in登陆后台
 	$("#submit-btn").click(function(){
 		var name = $("#name-input").val();
@@ -126,7 +162,8 @@ $(function(){
 						$("#password-group").addClass("has-error");
 						$("#name-input").focus();
 					}else{
-						if(window.localStorage){   
+						if(window.localStorage){ 
+							alert('支持');
 							localStorage.setItem("username",name);
 							localStorage.setItem("password",shaPassword);
 							location.href="admin/main.html";
@@ -151,21 +188,6 @@ $(function(){
 		$(this).addClass("active");
 	});
 
-	/*注册按钮*/
-	$("#add-btn").click(function(){
-		var name = $("#name-input").val(); 
-		var password = $("#password-input").val();
-		$.ajax({
-			url:"adduser",
-			type:"POST",
-			dataType:"json",
-			data:{username:name,password:password},
-			success:function(data){
-				alert("ok");
-			},
-		});
-	});
-
 	/*左侧列表按钮隐藏事件*/
 	$("#open-dream").click(function(){
 		$("#dream-list").show();
@@ -180,7 +202,7 @@ $(function(){
 	$("#open-tech").click(function(){
 		$("#tech-list").show();
 		$("#dream-list").hide();
-		$("#life-list").hide(); 
+		$("#life-list").hide();
 	});
 
 	/*左侧列表导航按钮加载article列表*/
@@ -190,6 +212,7 @@ $(function(){
 		$(".big-pic").hide();
 		$("#article").hide();
 		var classifyid = $(this).attr("value");
+		var classifyname = $(this).children("span:first").html();
 		$.ajax({
 			url:"articlesbyclass",
 			type:"POST",
@@ -203,6 +226,7 @@ $(function(){
 						$(".page-content").append("<div id=post-container"+k+" class='post-container'></div>");
 						$("#post-container"+k+"").append("<h2 id=post-title"+k+" class='post-title'><a href='#'>"+v.title+"</a></h2>");
 						$("#post-container"+k+"").append("<div id=post-content"+k+" class='post-content'>"+v.content+"</div>");
+						$("#post-container"+k+"").append("<div id=post-footer"+k+" class='post-footer'>代鹏伟/"+classifyname+"/"+v.createtime+"/阅读:"+v.readcount+"</div>");
 						//保存对象的ID
 						$("#post-title"+k+"").append("<div class='input-id'>"+v.id+"</div>");
 					});
@@ -228,6 +252,7 @@ $(function(){
 			}  
 		}
 	}); 
+
 })
 /*分页加载数据，并加锁*/
 function LoadPage(){
@@ -246,8 +271,9 @@ function LoadPage(){
 				}else{
 					$.each(data,function(k,v){
 						$(".page-content").append("<div id=post-container"+articleIndex+" class='post-container'></div>");
-						$("#post-container"+articleIndex+"").append("<h2 id=post-title"+articleIndex+" class='post-title'><a href='#'>"+v.title+"</a></h2>");
+						$("#post-container"+articleIndex+"").append("<h2 id=post-title"+articleIndex+" class='post-title'><a>"+v.title+"</a></h2>");
 						$("#post-container"+articleIndex+"").append("<div id=post-content"+articleIndex+" class='post-content'>"+v.content+"</div>");
+						$("#post-container"+articleIndex+"").append("<div id=post-footer"+articleIndex+" class='post-footer'>代鹏伟/"+v.name+"/"+v.createtime+"/阅读:"+v.readcount+"</div>");
 						//保存对象的ID
 						$("#post-title"+articleIndex+"").append("<div class='input-id'>"+v.id+"</div>");
 						articleIndex++;
@@ -259,4 +285,25 @@ function LoadPage(){
 	}
 	//$(".la-pacman").hide();
 	lock = true;
+}
+/*登陆modal检查数据*/
+function checkinput(){
+	var flag = true;
+	var name = $("#n-name-input").val();
+	var password = $("#n-password-input").val();
+	var email = $('#n-email-input').val();
+	if(!name){
+		$("#n-name-group").addClass("has-error").focus();
+		$("#n-name-input").focus();
+		flag = false;
+	}else if(!email){
+		$("#n-email-group").addClass("has-error").focus();
+		$("#n-email-input").focus();
+		flag = false
+	}else if(!password){
+		$("#n-password-group").addClass("has-error");
+		$("#n-password-input").focus();
+		flag = false;
+	}
+	return flag;
 }

@@ -57,7 +57,11 @@ public class BlogManager extends CommonManager{
 	public void saveArticle(Article article ){
 		if(article.getId() == null || article.getId().toString().equals("")){
 			article.setCreatetime(Constants.DF_yyyyMMddHHmmss.format(new Date()));
+			article.setReadcount(0);
 			aDao.save(article);
+			//保存article的同时修改Classity中的数量
+			Classify classify = cDao.findOne(new Long(article.getPid()));
+			classify.setCount(classify.getCount() + 1);
 		}else{
 			Article oldArticle = aDao.findOne(article.getId());
 			oldArticle.setTitle(article.getTitle());
@@ -67,12 +71,19 @@ public class BlogManager extends CommonManager{
 		}
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void seveArticleReadCount(Long id){
+		Article art = aDao.findOne(id);
+		art.setReadcount(art.getReadcount() + 1);
+		aDao.save(art);
+	}
+	
 	/**
 	 * 加载分页的article
 	 */
 	public List<Map<String, Object>> getArticlesByPage(int currPage){
 		int start = Constants.PAGE_SIZE * (currPage - 1);
-		String sql = "select * from article order by createtime desc limit "+start+","+Constants.PAGE_SIZE+";";
+		String sql = "select a.*,c.name from article a ,classify c where a.pid = c.id  order by a.createtime desc limit "+start+","+Constants.PAGE_SIZE+";";
 		List<Map<String, Object>> articles = query(sql);
 		for(Map<String, Object> article : articles){
 			article.put("content", HtmlUtil.getTextFromHtml(article.get("content").toString()));

@@ -15,4 +15,6 @@ import com.jondai.blog.entity.User;
 public interface UserDao extends CrudRepository<User, Long>{
 	
 	public List<User> findByUsername(String username);
+	
+	public List<User> findByEmail(String email);
 }

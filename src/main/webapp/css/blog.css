@@ -6,7 +6,6 @@
 body {
   color: #555;
 }
-
 /*
  * Blog name and description
  */
@@ -86,6 +85,7 @@ body {
 	margin-right: 120px;
 	margin-left: 120px;
 }
+.page-content a{cursor: pointer;}
 .page-title {
     border-bottom: 1px solid #eee;
     color: #999;
@@ -100,7 +100,7 @@ body {
 }
 .post-container {
     border-bottom: 1px dashed #cacaca;
-    padding-bottom: 30px;
+    padding-bottom: 0px;
     margin-left: 75px;
     margin-right: 75px;
 }
@@ -116,7 +116,12 @@ body {
 	display: none;
 }
 /*登陆模态框*/
-.modal-body input{margin-bottom: 20px}
+.modal-body .input-group{margin-bottom: 20px;}
+#name-group{padding-left: 14px; padding-right: 13px;}
+#submit-btn{width: 500px;height: 40px}
+#add-btn{width: 500px;height: 40px}
+#modal-newaccount{display: none;}
+
 /*加载中动画颜色*/
 .la-pacman{color: #79bbb5; margin-left: auto;margin-right: auto; bottom: 30px;display: none;}
 /*详情边框*/
@@ -127,3 +132,13 @@ body {
 .menu-wrap{width: 240px;margin-top: 50px;padding:10px 10px 0px 10px}
 /*导航栏 指示*/
 #bs-example-navbar-collapse-1 li{cursor: pointer;}
+/*article footer*/
+.post-footer{margin-left: 10px;font-size: 12px;}
+/*轮番图 文字介绍*/
+.carousel-caption{
+	margin-bottom: 60px;
+}
+/*登陆modal样式修改*/
+.modal-dialog{width: 550px;}
+.logon-nav > li {width: 250px;text-align: center;}
+.modal-header{border-bottom-width: 0px;}
