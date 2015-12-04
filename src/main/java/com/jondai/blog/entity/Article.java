@@ -1,5 +1,6 @@
 package com.jondai.blog.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -20,6 +21,7 @@ public class Article extends IdEntity{
 	@Expose
 	private String title;
 	@Expose
+	@Column(length=100000)
 	private String content;
 	@Expose
 	private int status;

@@ -7,7 +7,6 @@ var lock = true;   //方法锁
 var DREAM = 1;
 var LIFE = 2;
 var TECH = 3;
-var LOGON_STORGE = false;   //默认未使用本地存储密码
 $(function(){
 
 	//加载最近更新所有blog
@@ -93,7 +92,6 @@ $(function(){
 		}
 		if(localparam.password){
 			$("#password-input").val(localparam.password);
-			LOCAL_STORGE = true;
 		}
 	});
 	/*登陆、注册切换事件*/
@@ -115,20 +113,17 @@ $(function(){
 		if(checkinput()){
 			var name = $("#n-name-input").val(); 
 			var password = $("#n-password-input").val();
-			var email = $("#n-password-input").val();
+			var email = $("#n-email-input").val();
 			$.ajax({
 				url:"adduser",
 				type:"POST",
 				dataType:"json",
-				data:{username:name,password:password,email:email,type:1},
+				data:{username:name,password:password,email:email,usertype:1},
 				success:function(data){
 					if(data.faild){
 						swal("Ooop!",data.faild,"error");
 					}else{
 						swal("OK!","注册成功!","success");
-						localStorage.setItem("username",data.name);
-						localStorage.setItem("password",data.shaPassword);
-						localStorage.setItem('type',data.type);	
 					}
 				},
 			});
@@ -145,8 +140,8 @@ $(function(){
 			$("#password-group").addClass("has-error");
 			$("#password-input").focus();
 		}else{
-			var shaPassword
-			if(!LOCAL_STORGE){
+			var shaPassword;
+			if(password != localparam.password){
 				shaPassword = hex_sha1(password);
 			}else{
 				shaPassword = password;
@@ -158,15 +153,18 @@ $(function(){
 				data:{username:name,password:shaPassword},
 				success:function(data){
 					if(data.faild){
+						swal("Ooop!",'用户名或密码错误!','error');
 						$("#name-group").addClass("has-error").focus();
-						$("#password-group").addClass("has-error");
-						$("#name-input").focus();
 					}else{
 						if(window.localStorage){ 
-							alert('支持');
 							localStorage.setItem("username",name);
 							localStorage.setItem("password",shaPassword);
-							location.href="admin/main.html";
+							if(data.usertype == 0){
+								location.href="admin/main.html";
+							}else{
+								swal("OK!",'登录成功!','success');
+								$('#myModal').modal('hide');
+							}
 						}else{  
 							alert("浏览器还不支持 web storage 功能");  
 						}
@@ -175,13 +173,6 @@ $(function(){
 			})
 		}
 	});
-
-	/*Sgin in reset-btn 重置按钮*/
-	$("#reset-btn").click(function(){
-		$("#password-input").val("");
-		$("#name-input").val("").focus();
-	});
-
 	/*导航栏 点击切换样式*/
 	$(".navbar-nav li").click(function(){
 		$(".navbar-nav .active").removeClass("active");
