@@ -8,25 +8,8 @@ var DREAM = 1;
 var LIFE = 2;
 var TECH = 3;
 $(function(){
-
 	//加载最近更新所有blog
 	LoadPage();
-	/*
-	$.ajax({
-		type:"GET",
-		url:"postlately",
-		dataType:"json",
-		success:function(data){
-			$.each(data,function(k,v){
-				$(".page-content").append("<div id=post-container"+k+" class='post-container'></div>");
-				$("#post-container"+k+"").append("<h2 id=post-title"+k+" class='post-title'><a href='#'>"+v.title+"</a></h2>");
-				$("#post-container"+k+"").append("<div id=post-content"+k+" class='post-content'>"+v.content+"</div>");
-				//保存对象的ID
-				$("#post-title"+k+"").append("<div class='input-id'>"+v.id+"</div>");
-			})
-		}
-	});
-	 */
 	//左侧分页导航
 	$("#dream-list").empty();
 	$.ajax({
@@ -37,7 +20,7 @@ $(function(){
 		success:function(data){
 			var sidelist = $("#dream-list");
 			$.each(data,function(k,v){
-				sidelist.append('<a href="#" value="'+v.id+'"><span class="glyphicon glyphicon-send"> '+v.name+'-'+v.count+'</span></a>');
+				sidelist.append('<a href="#" value="'+v.id+'"><i class=" icon-star-empty"> '+v.name+'</i><span class="label label-danger">'+v.count+'</span></a>');
 			});
 		}
 	});
@@ -50,7 +33,7 @@ $(function(){
 		success:function(data){
 			var sidelist = $("#life-list");
 			$.each(data,function(k,v){
-				sidelist.append('<a href="#" value="'+v.id+'"><span class="glyphicon glyphicon-heart"> '+v.name+'-'+v.count+'</span></a>');
+				sidelist.append('<a href="#" value="'+v.id+'"><i class="icon-heart-empty"> '+v.name+'</i><span class="label label-success">'+v.count+'</span></a>');
 			});
 		}
 	});
@@ -64,7 +47,7 @@ $(function(){
 		success:function(data){
 			var sidelist = $("#tech-list");
 			$.each(data,function(k,v){
-				sidelist.append('<a href="#" value="'+v.id+'"><span class="glyphicon glyphicon-tags"> '+v.name+'</span><span>-'+v.count+'</span></a>');
+				sidelist.append('<a href="#" value="'+v.id+'"><i class="icon-tags"> '+v.name+'</i><span class="label label-info">'+v.count+'</span></a>');
 			});
 		}
 	});
@@ -203,7 +186,7 @@ $(function(){
 		$(".big-pic").hide();
 		$("#article").hide();
 		var classifyid = $(this).attr("value");
-		var classifyname = $(this).children("span:first").html();
+		var classifyname = $(this).children("i").html();
 		$.ajax({
 			url:"articlesbyclass",
 			type:"POST",
@@ -216,8 +199,9 @@ $(function(){
 					$.each(data,function(k,v){
 						$(".page-content").append("<div id=post-container"+k+" class='post-container'></div>");
 						$("#post-container"+k+"").append("<h2 id=post-title"+k+" class='post-title'><a href='#'>"+v.title+"</a></h2>");
+						$("#post-container"+k+"").append("<div id=post-about"+k+" class='post-about'><i class='icon-time'>"+v.createtime+"</i> / <i class='icon-user'>代鹏伟</i></div>");
 						$("#post-container"+k+"").append("<div id=post-content"+k+" class='post-content'>"+v.content+"</div>");
-						$("#post-container"+k+"").append("<div id=post-footer"+k+" class='post-footer'>代鹏伟/"+classifyname+"/"+v.createtime+"/阅读:"+v.readcount+"</div>");
+						$("#post-container"+k+"").append("<div id=post-footer"+k+" class='post-footer'><i class='icon-folder-close-alt'>"+classifyname+"</i> / <i class='icon-eye-open'>:"+v.readcount+"</div>");
 						//保存对象的ID
 						$("#post-title"+k+"").append("<div class='input-id'>"+v.id+"</div>");
 					});
@@ -231,25 +215,35 @@ $(function(){
 	/*无限滚动分页加载*/
 	$(".content-wrap").scroll(function(event){
 		//当内容滚动到底部时加载新的内容  
-		// if ($(this).scrollTop() + $(window).height() + 100 >= $(document).height() && $(this).scrollTop() >20){
 		if(isCanLoad){
 			var $this =$(this),
 			viewH =$(this).height(),//可见高度
 			contentH =$(this).get(0).scrollHeight,//内容高度
 			scrollTop =$(this).scrollTop();//滚动高度
-			//if(contentH - viewH - scrollTop <= 100) { //到达底部100px时,加载新内容
 			if(scrollTop/(contentH -viewH)>=0.95){ //到达底部100px时,加载新内容
 				if(lock){ LoadPage();}
+				$('.to-top').show();
 			}  
 		}
 	}); 
-
+	/*下一页 -- 上一页*/
+	$('#previous').click(function(){
+		if(currPage = 1){
+			
+		}
+	});
+	$('.to-top').toTop({
+	    //options with default values
+	    autohide: true,
+	    offset: 420,
+	    speed: 500,
+	    right: 15,
+	    bottom: 30
+	});
 })
 /*分页加载数据，并加锁*/
 function LoadPage(){
 	lock = false;
-	//$(".la-pacman").show();
-	//setTimeout(function(){console.log("2")},2000);
 	if(isCanLoad){
 		$.ajax({
 			url:"loadpage/"+currPage,
@@ -263,8 +257,9 @@ function LoadPage(){
 					$.each(data,function(k,v){
 						$(".page-content").append("<div id=post-container"+articleIndex+" class='post-container'></div>");
 						$("#post-container"+articleIndex+"").append("<h2 id=post-title"+articleIndex+" class='post-title'><a>"+v.title+"</a></h2>");
+						$("#post-container"+articleIndex+"").append("<div id=post-about"+articleIndex+" class='post-about'><i class='icon-time'>"+v.createtime+"</i> / <i class='icon-user'>代鹏伟</i></div>");
 						$("#post-container"+articleIndex+"").append("<div id=post-content"+articleIndex+" class='post-content'>"+v.content+"</div>");
-						$("#post-container"+articleIndex+"").append("<div id=post-footer"+articleIndex+" class='post-footer'>代鹏伟/"+v.name+"/"+v.createtime+"/阅读:"+v.readcount+"</div>");
+						$("#post-container"+articleIndex+"").append("<div id=post-footer"+articleIndex+" class='post-footer'><i class='icon-folder-close-alt'>"+v.name+"</i> / <i class='icon-eye-open'>:"+v.readcount+"</div>");
 						//保存对象的ID
 						$("#post-title"+articleIndex+"").append("<div class='input-id'>"+v.id+"</div>");
 						articleIndex++;
@@ -274,7 +269,6 @@ function LoadPage(){
 			}
 		});
 	}
-	//$(".la-pacman").hide();
 	lock = true;
 }
 /*登陆modal检查数据*/

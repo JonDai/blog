@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JonDai</title>
 <link rel="stylesheet" media="screen"
 	href="plugins/bootstrap/css/bootstrap.css">
@@ -13,9 +14,10 @@
 <script type="text/javascript" src="plugins/jquery/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="plugins/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="plugins/sweetalert/sweet-alert.min.js"></script>
+<script type="text/javascript" src="js/jquery.toTop.min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 </head>
-<body>
+<body id=”#top>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -40,13 +42,6 @@
 					<li id="open-life"><a>生活</a></li>
 					<li id="open-tech"><a>技术</a></li>
 				</ul>
-				<!-- Search input 
-				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
-						<span id="search-btn" class="glyphicon glyphicon-search"></span>
-					</div>
-				</form>-->
 				<ul class="nav navbar-nav navbar-right">
 					<li id="signin"><a href="#"><!-- data-toggle="modal" data-target="#myModal" -->
 							<span class="glyphicon glyphicon-log-in"></span> Sign  In
@@ -113,14 +108,8 @@
 
 			<div class="page-content">
 				<h1 class="page-title">最近更新</h1>
-		<!--<div class="post-container">
-			<h2 class="post-title">
-				<a href="#"></a>
-			</h2>
-			<div class="meta-box"></div>
-			<div class="post-content"></div>
-		</div> -->
 			</div>
+
 			</div><!-- blog-content -->
 			<div id="article" class="box">
 				<div class="article-header">
@@ -134,6 +123,7 @@
 					</div>
 				</div>
 			</div>
+			
 			<!-- /article end -->
 			<div class="admin-login">
 				<!-- Modal -->
@@ -195,17 +185,11 @@
 				<!-- modal end -->
 			</div>
 			<!-- admin-login end -->
-			<!-- loading -->
-			<div class="la-pacman">
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-			<!-- loading end -->
 		</div>
 		<!-- content end -->
 	</div>
+	<!-- 回到顶部 -->
+	<a class="to-top">Top ↑</a>
 	<!-- content-wrap end -->
 	<script type="text/javascript" src="js/sha1.js"></script>
 	<script type="text/javascript" src="plugins/menu-side/classie.js"></script>

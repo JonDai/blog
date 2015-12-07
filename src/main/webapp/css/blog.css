@@ -130,6 +130,7 @@ body {
 #search-btn{ display: inline; float: right; left: 535px;margin-top: 18px;position: absolute;}
 /*左侧导航栏*/
 .menu-wrap{width: 240px;margin-top: 50px;padding:10px 10px 0px 10px}
+#menu-list a{margin-left: 15px;}
 /*导航栏 指示*/
 #bs-example-navbar-collapse-1 li{cursor: pointer;}
 /*article footer*/
@@ -142,3 +143,6 @@ body {
 .modal-dialog{width: 550px;}
 .logon-nav > li {width: 250px;text-align: center;}
 .modal-header{border-bottom-width: 0px;}
+.post-about{font-size: 12px;margin: 0px; margin-left: 10px;}
+#menu-list .label{padding:1px 2px;}
+/*回到顶部*/
