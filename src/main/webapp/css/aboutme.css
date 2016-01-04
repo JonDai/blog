@@ -1,0 +1,14 @@
+.center{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 500px;
+}
+.c-title{
+	text-align: center;
+}
+.c-footer {
+    bottom: 0;
+    position: absolute;
+    margin-bottom: 30px;
+}
